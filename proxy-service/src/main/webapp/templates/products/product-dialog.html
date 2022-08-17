@@ -1,0 +1,60 @@
+<div>
+    <div class="text-left">
+        <button class="btn btn-primary" ui-sref="home">
+            Retour
+        </button>
+    </div>
+    <br/>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Créer ou Editer un produit
+        </div>
+        <div class="panel-body">
+            <form >
+                <div class="form-group" ng-if="product.id">
+                    <label for="id">ID :</label>
+                    <input type="text" class="form-control" disabled ng-model="product.id" id="id"/>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="name">Nom :</label>
+                            <input type="text" class="form-control" ng-model="product.name" id="name"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="dateFabrication">Date Fabrication :</label>
+                            <input type="date" class="form-control" ng-model="product.dateFabrication" id="dateFabrication"/>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="poids">Poids(Kg) :</label>
+                            <input type="number" class="form-control" ng-model="product.poids" id="poids"/>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="fabriquant">Fabriquant :</label>
+                            <input type="text" class="form-control" ng-model="product.fabriquant" id="fabriquant"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="dateExpiration">Date Expiration :</label>
+                            <input type="date" class="form-control" ng-model="product.dateExpiration" id="dateExpiration"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="heure">Heure :</label>
+                            <input type="time" class="form-control" ng-model="product.heure" id="heure"/>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <button type="submit" ng-click="save()" class="btn btn-primary">Enregistrer</button>
+                    <button class="btn btn-default">Annuler</button>
+                </div>
+               
+            </form>
+
+        </div>
+    </div>
+    
+</div>

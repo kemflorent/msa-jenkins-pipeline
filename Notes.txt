@@ -1,0 +1,101 @@
+
+
+mvn clean package
+
+docker build -t movie-catalog .
+
+docker run -p8081:8081 movie-catalog
+
+docker inspect movie-catalog
+docker stop movie-catalog
+docker rm movie-catalog
+
+docker ps
+
+docker image ls
+
+
+- Docker Compose
+
+docker-compose config
+
+docker-compose up --build
+
+docker-compose down
+
+
+Scale microservices
+
+ Change docker-compose.yml : 
+	 ports:
+	    - 18800-18888:8888
+	    
+docker-compose --file docker-compose-scale.yml up -d --build --scale message-server=1 product-server=1
+This command will spin up a single message-server and a single product-server. 
+
+
+To scale our services, we can run the following command:
+
+docker-compose --file docker-compose-scale.yml up -d --build --scale message-server=3 product-server=2
+
+This command will launch two additional message servers and one additional product server. The running containers won't be stopped.
+
+
+
+chmod 400 SpringBootTest.pem
+Connexion en ssh
+ssh -i SpringBootTest.pem ubuntu@54.234.159.171
+Transférer un fichier vers mon serveur
+scp -i /path/my-key-pair.pem /path/my-file.txt ec2-user@my-instance-public-dns-name:path/
+Télécharger un fichier du serveur en local
+scp -i /path/my-key-pair.pem ec2-user@my-instance-public-dns-name:path/my-file.txt path/my-file2.txt
+
+
+
+
+
+AWS Jenkins Password: eb6d4f77734a4ae99fef2adfe34e308a
+
+
+
+
+
+Roadmap to deploy microservice on aws
+- Generate the project OK
+- Build docker image NOK
+- Save docker image on dockerhub 
+  https://www.techrepublic.com/article/how-to-build-a-docker-image-and-upload-it-to-docker-hub/
+  https://www.section.io/engineering-education/docker-push-for-publishing-images-to-docker-hub/ NOK
+- Configure Jenkins to deploy Maven project 
+  (
+	https://devopspilot.com/content/jenkins/tutorials/pipeline/03-jenkinsfile-to-build-maven-project
+	https://devopspilot.com/content/jenkins/tutorials/pipeline/04-jenkinsfile-to-build-maven-project-and-deploy-to-tomcat
+	https://devopspilot.com/content/jenkins/tutorials/pipeline/05-jenkinsfile-to-build-docker-image-push-deploy-to-same-server
+  )
+  https://appfleet.com/blog/ci-dc-pipeline-using-jenkins-git-and-maven/
+  https://www.tothenew.com/blog/how-to-setup-jenkins-for-a-maven-project/
+  https://towardsdev.com/guide-to-maven-build-cycle-using-jenkins-41e2914663ae NOK
+- Configure Jenkins to deploy Angular project 
+  https://medium.technofunnel.net/deploying-node-application-on-github-using-jenkins-in-5-minutes-f6f130061ef
+  https://codeforgeek.com/continuous-integration-deployment-jenkins-node-js/ NOK
+- Configure Jenkins to deploy php project 
+  https://modess.io/continuous-integration-for-laravel-with-jenkins-and-git/
+  https://blog.devgenius.io/devops-achieve-ci-cd-via-jenkins-in-15-mins-eddf8e25b0a6
+  https://faun.pub/configure-laravel-8-for-ci-cd-with-jenkins-and-github-part-1-58b9be304292  NOK
+- Launch a local deployment of microservices with Jenkins NOK
+- Deploy Maven project on AWS with Jenkins (
+	https://www.howtoforge.com/setup-simple-ci-cd-pipeline-using-github-and-jenkins-on-aws-ec2-linux-instance/
+	https://devopsrealtime.com/deploy-jenkins-pipeline-to-build-and-deploy-simple-java-application/eb6d4f77734a4ae99fef2adfe34e308aeb6d4f77734a4ae99fef2adfe34e308a
+)NOK
+
+
+
+https://github.com/SebastianHanke/Jenkins-build-examples/blob/master/README.md
+https://www.maveryx.com/ci-jenkins-with-ant/
+https://eureka.ykyuen.info/2013/10/04/jenkins-setup-a-simple-ant-build-project/
+
+
+
+
+	
+Password bitbucket: yNtzKPp22e94XsEuHvPs

@@ -1,0 +1,47 @@
+<div>
+    <div class="jumbotron">
+        <h1 class="text-center">Liste des produits</h1>
+    </div>
+    <hr/>
+    <div>
+        <a class="btn btn-primary" ui-sref="productForm">Ajouter un produit</a>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nom du produit</th>
+                    <th>Fabriquant</th>
+                    <th>Date de Fabrication</th>
+                    <th>Date d'Expiration</th>
+                    <th>Poids</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="product in products">
+                    <td>{{ product.id }}</td>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.fabriquant }}</td>
+                    <td>{{ product.dateFabrication | date: 'dd/MM/yyyy'}}</td>
+                    <td>{{ product.dateExpiration | date: 'dd/MM/yyyy'}}</td>
+                    <td>{{ product.poids }}</td>
+                    <td>
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Actions
+                            <span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                              <li><a ui-sref="productDetails({id: product.id})"> Voir</a></li>
+                              <li><a ui-sref="productEdit({id: product.id})"> Editer </a></li>
+                              <li><a ng-click="supprimer(product.id)"> Supprimer</a></li>
+                            </ul>
+                        </div> 
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>

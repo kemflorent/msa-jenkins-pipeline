@@ -1,0 +1,43 @@
+<div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <label> Nom du produit </label>
+            <span>{{ product.name }} </span>
+        </div>
+        <div class="col-md-6">
+            <label> Fabriquant </label>
+            <span>{{ product.fabriquant }} </span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <label> Date Fabrication </label>
+            <span>{{ product.dateFabrication | date:'dd/MM/yyyy'}} </span>
+        </div>
+        <div class="col-md-6">
+            <label> Date Expiration </label>
+            <span>{{ product.dateExpiration | date:'dd/MM/yyyy'}} </span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <label> Poids </label>
+            <span>{{ product.poids}} </span>
+        </div>
+        <div class="col-md-6">
+            <label> Heure </label>
+            <span>{{ product.heure | date:'h:mm a'}} </span>
+        </div>
+    </div>
+    <hr/>
+
+    <div class="text-left">
+        <button class="btn btn-primary" ng-click="previous()">
+            Retour
+        </button>
+    </div>
+
+</div>
