@@ -1,5 +1,15 @@
 version: '2'
 services:
+    config-service:
+      container_name: ms-config
+      build: 
+        context: config-server
+        dockerfile: Dockerfile
+      image: ms-config
+      ports:
+        - 8888:8888
+      networks: 
+        - spring-cloud-network 
     discovery-service:  
       container_name: ms-discovery
       build: 
@@ -9,35 +19,25 @@ services:
       ports:
         - 8761:8761
       networks: 
-        - spring-cloud-network      
-    movie-info-service:
-      container_name: ms-movie-info
+        - spring-cloud-network       
+    proxy-service:  
+      container_name: ms-proxy
       build: 
-        context: movie-info-service
+        context: proxy-server
         dockerfile: Dockerfile
-      image: ms-movie-info
+      image: ms-proxy
       ports:
-        - 8082:8082
+        - 9999:9999
       networks: 
         - spring-cloud-network  
-    rating-data-service:  
-      container_name: ms-rating-data
+    product-service:
+      container_name: ms-product
       build: 
-        context: rating-data-service
+        context: product-server
         dockerfile: Dockerfile
-      image: ms-rating-data
+      image: ms-product
       ports:
-        - 8083:8083
-      networks: 
-        - spring-cloud-network  
-    movie-catalog-service:
-      container_name: ms-movie-catalog
-      build: 
-        context: movie-catalog-service
-        dockerfile: Dockerfile
-      image: ms-movie-catalog
-      ports:
-        - 8081:8081
+        - 9090:9090
       networks: 
         - spring-cloud-network  
 networks:
