@@ -5,9 +5,6 @@ pipeline {
         imagename = "florent/product-service" // Nom du container docker
         registryCredential = 'DockerHub_Pipeline_Credentials'
         dockerImage = ''
-	    GITHUB_BRANCH = 'main'
-        GITHUB_URL = 'https://github.com/kemflorent/msa-jenkins-pipeline.git'
-        GITHUB_CREDENTIAL_ID = 'Pipeline_GitHub_Credentials'
     }
     // using the Timestamper plugin we can add timestamps to the console log
     options {
@@ -17,9 +14,9 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 git 
-                   url: GITHUB_URL,
-                   branch: BRANCH,
-                   credentialsId: GITHUB_CREDENTIAL_ID
+                   url: 'https://github.com/kemflorent/msa-jenkins-pipeline.git',
+                   branch: 'main',
+                   credentialsId: 'Pipeline_GitHub_Credentials'
             }
         }
         stage("Build JAR") {
