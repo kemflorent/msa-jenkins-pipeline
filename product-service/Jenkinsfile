@@ -1,0 +1,98 @@
+pipeline {
+    agent any
+    //Use Pipeline Utility Steps plugin to read information from pom.xml into env variables
+    environment { 
+        imagename = "florent/product-service" // Nom du container docker
+        registryCredential = 'DockerHub_Pipeline_Credentials'
+        dockerImage = ''
+	    GITHUB_BRANCH = 'main'
+        GITHUB_URL = 'https://github.com/kemflorent/msa-jenkins-pipeline.git'
+        GITHUB_CREDENTIAL_ID = 'Pipeline_GitHub_Credentials'
+    }
+    // using the Timestamper plugin we can add timestamps to the console log
+    options {
+        timestamps()
+    }
+    stages {
+        stage('Clone Repository') {
+            steps {
+                git 
+                   url: GITHUB_URL,
+                   branch: BRANCH,
+                   credentialsId: GITHUB_CREDENTIAL_ID
+            }
+        }
+        stage("Build JAR") {
+            steps {
+                dir ('product-service') {
+                    sh 'mvn -B clean package'
+                }
+            }
+        }
+        stage("Build Docker Image") {
+            steps {
+                dir ('product-service') {
+                    script { 
+                        dockerImage = docker.build imagename + ":$BUILD_NUMBER" 
+                    }
+                }
+            }
+        }
+        stage("Push Docker Image") {
+            steps {
+                dir ('product-service') {
+                    script { 
+                        docker.withRegistry( '', registryCredential ) { 
+                            dockerImage.push() 
+                        }
+                    }
+                }
+            }
+        }
+        stage("Run Docker Image") {
+            steps {
+                script { 
+                    docker.image(imagename + ":$BUILD_NUMBER")
+                          .run('-p 9090:9090 --name product')
+                }
+            }
+        }
+        stage('Cleaning up') { 
+            steps { 
+                echo 'Removing unused docker containers and images..'
+                sh 'docker ps -aq | xargs --no-run-if-empty docker rm'
+                // keep intermediate images as cache, only delete the final image
+                sh 'docker images -q | xargs --no-run-if-empty docker rmi'
+            }
+        } 
+        stage ('Final') {
+            steps {
+                // script {
+                    build job: 'proxy-service-pipeline', wait: false
+                // }
+            }
+        }
+
+        // stage("Testing") {
+        //     parallel {
+        //         stage("Unit Tests") {
+        //             agent { docker 'openjdk:7-jdk-alpine' }
+        //             steps {
+        //                 sh 'java -version'
+        //             }
+        //         }
+        //         stage("Functional Tests") {
+        //             agent { docker 'openjdk:8-jdk-alpine' }
+        //             steps {
+        //                 sh 'java -version'
+        //             }
+        //         }
+        //         stage("Integration Tests") {
+        //             steps {
+        //                 sh 'java -version'
+        //             }
+        //         }
+        //     }
+        // }  
+    }
+}

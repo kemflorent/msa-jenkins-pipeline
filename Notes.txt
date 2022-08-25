@@ -7,12 +7,16 @@ docker build -t movie-catalog .
 docker run -p8081:8081 movie-catalog
 
 docker inspect movie-catalog
-docker stop movie-catalog
-docker rm movie-catalog
+docker stop container Id: c54a989d456e
+docker rm container Id: c54a989d456e
 
 docker ps
 
 docker image ls
+
+sudo usermod -aG docker florent
+su - florent
+id -nG
 
 
 - Docker Compose
@@ -59,34 +63,8 @@ AWS Jenkins Password: eb6d4f77734a4ae99fef2adfe34e308a
 
 
 
-
-Roadmap to deploy microservice on aws
-- Generate the project OK
-- Build docker image NOK
-- Save docker image on dockerhub 
-  https://www.techrepublic.com/article/how-to-build-a-docker-image-and-upload-it-to-docker-hub/
-  https://www.section.io/engineering-education/docker-push-for-publishing-images-to-docker-hub/ NOK
-- Configure Jenkins to deploy Maven project 
-  (
-	https://devopspilot.com/content/jenkins/tutorials/pipeline/03-jenkinsfile-to-build-maven-project
-	https://devopspilot.com/content/jenkins/tutorials/pipeline/04-jenkinsfile-to-build-maven-project-and-deploy-to-tomcat
-	https://devopspilot.com/content/jenkins/tutorials/pipeline/05-jenkinsfile-to-build-docker-image-push-deploy-to-same-server
-  )
-  https://appfleet.com/blog/ci-dc-pipeline-using-jenkins-git-and-maven/
-  https://www.tothenew.com/blog/how-to-setup-jenkins-for-a-maven-project/
-  https://towardsdev.com/guide-to-maven-build-cycle-using-jenkins-41e2914663ae NOK
-- Configure Jenkins to deploy Angular project 
-  https://medium.technofunnel.net/deploying-node-application-on-github-using-jenkins-in-5-minutes-f6f130061ef
-  https://codeforgeek.com/continuous-integration-deployment-jenkins-node-js/ NOK
-- Configure Jenkins to deploy php project 
-  https://modess.io/continuous-integration-for-laravel-with-jenkins-and-git/
-  https://blog.devgenius.io/devops-achieve-ci-cd-via-jenkins-in-15-mins-eddf8e25b0a6
-  https://faun.pub/configure-laravel-8-for-ci-cd-with-jenkins-and-github-part-1-58b9be304292  NOK
-- Launch a local deployment of microservices with Jenkins NOK
-- Deploy Maven project on AWS with Jenkins (
-	https://www.howtoforge.com/setup-simple-ci-cd-pipeline-using-github-and-jenkins-on-aws-ec2-linux-instance/
-	https://devopsrealtime.com/deploy-jenkins-pipeline-to-build-and-deploy-simple-java-application/eb6d4f77734a4ae99fef2adfe34e308aeb6d4f77734a4ae99fef2adfe34e308a
-)NOK
+jenkins pipeline script examples
+https://gist.github.com/merikan/228cdb1893fca91f0663bab7b095757c
 
 
 
