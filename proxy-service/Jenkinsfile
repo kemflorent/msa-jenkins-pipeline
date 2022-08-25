@@ -13,10 +13,12 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git 
-                  url: 'https://github.com/kemflorent/msa-jenkins-pipeline.git',
-                   branch: 'main',
-                   credentialsId: 'Pipeline_GitHub_Credentials'
+                script {
+                    git 
+                    url: 'https://github.com/kemflorent/msa-jenkins-pipeline.git',
+                    branch: 'main',
+                    credentialsId: 'Pipeline_GitHub_Credentials'
+                }
             }
         }
         stage("Build JAR") {
