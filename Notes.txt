@@ -14,9 +14,13 @@ docker ps
 
 docker image ls
 
-sudo usermod -aG docker florent
+sudo usermod -a -G docker florent
 su - florent
 id -nG
+
+sudo usermod -a -G docker jenkins
+
+Il faut redemarrer la machine après les commandes précédentes
 
 
 - Docker Compose

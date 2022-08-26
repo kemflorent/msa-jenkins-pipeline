@@ -2,8 +2,8 @@ pipeline {
     agent any
     //Use Pipeline Utility Steps plugin to read information from pom.xml into env variables
     environment { 
-        imagename = "florent/discovery-service" // Nom du container docker
-        registryCredential = 'DockerHub_Pipeline_Credentials'
+        registryCredential = 'DockerHub_Credentials'
+        imagename = 'kemflorent/discovery-service:' // Nom du container docker
         dockerImage = ''
     }
     stages {
@@ -15,7 +15,7 @@ pipeline {
         stage("Build JAR") {
             steps {
                 dir ('discovery-service') {
-                    sh 'mvn -B clean package'
+                    sh 'mvn -B clean package -DskipTests=true'
                 }
             }
         }
@@ -23,7 +23,7 @@ pipeline {
             steps {
                 dir ('discovery-service') {
                     script { 
-                        dockerImage = docker.build imagename + ":$BUILD_NUMBER" 
+                        dockerImage = docker.build imagename + "${env.BUILD_NUMBER}"
                     }
                 }
             }
@@ -32,8 +32,9 @@ pipeline {
             steps {
                 dir ('discovery-service') {
                     script { 
-                        docker.withRegistry( '', registryCredential ) { 
-                            dockerImage.push() 
+                        docker.withRegistry(dockerRepo, registryCredential ) { 
+                            dockerImage.push("${env.BUILD_NUMBER}")
+                            dockerImage.push("latest")
                         }
                     }
                 }
@@ -42,7 +43,7 @@ pipeline {
         stage("Run Docker Image") {
             steps {
                 script { 
-                    docker.image(imagename + ":$BUILD_NUMBER")
+                    docker.image(imagename)
                           .run('-p 8761:8761 --name discovery')
                 }
             }
