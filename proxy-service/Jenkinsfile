@@ -44,7 +44,7 @@ pipeline {
             steps {
                 script { 
                     sh "docker stop proxy"
-                    sh "docker run -p9999:9999 "+ imagename + "${env.BUILD_NUMBER} --name proxy"
+                    sh "docker run -d -p9999:9999 "+ imagename + "${env.BUILD_NUMBER} --name proxy"
                     // docker.image(imagename + "${env.BUILD_NUMBER}")
                     //      .run('-p 9999:9999 --name proxy')
                 }
