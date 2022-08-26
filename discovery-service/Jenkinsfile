@@ -43,8 +43,9 @@ pipeline {
         stage("Run Docker Image") {
             steps {
                 script { 
+                    sh 'docker stop discovery'
                     docker.image(imagename + "${env.BUILD_NUMBER}")
-                          .run('-p 8761:8761')
+                          .run('-p 8761:8761 --name discovery')
                 }
             }
         }

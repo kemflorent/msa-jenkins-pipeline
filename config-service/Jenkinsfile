@@ -43,8 +43,9 @@ pipeline {
         stage("Run Docker Image") {
             steps {
                 script { 
+                    sh 'docker stop config'
                     docker.image(imagename + "${env.BUILD_NUMBER}")
-                          .run('-p 8888:8888')
+                          .run('-p 8888:8888 --name config')
                 }
             }
         }
