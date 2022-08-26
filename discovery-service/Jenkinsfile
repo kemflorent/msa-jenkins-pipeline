@@ -44,7 +44,7 @@ pipeline {
             steps {
                 script { 
                     docker.image(imagename + "${env.BUILD_NUMBER}")
-                          .run('-p 8761:8761 --name discovery')
+                          .run('-p 8761:8761')
                 }
             }
         }

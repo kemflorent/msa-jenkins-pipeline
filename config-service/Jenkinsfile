@@ -44,7 +44,7 @@ pipeline {
             steps {
                 script { 
                     docker.image(imagename + "${env.BUILD_NUMBER}")
-                          .run('-p 8888:8888 --name config')
+                          .run('-p 8888:8888')
                 }
             }
         }
