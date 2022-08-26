@@ -43,7 +43,7 @@ pipeline {
         stage("Run Docker Image") {
             steps {
                 script { 
-                    docker.image(imagename)
+                    docker.image(imagename + "${env.BUILD_NUMBER}")
                           .run('-p 9090:9090 --name product')
                 }
             }
