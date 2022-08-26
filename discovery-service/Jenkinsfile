@@ -43,7 +43,7 @@ pipeline {
         stage("Run Docker Image") {
             steps {
                 script { 
-                    sh "docker stop discovery"
+                    // sh "docker stop discovery"
                     sh "docker run -d -p8761:8761 "+ imagename + "${env.BUILD_NUMBER} --name discovery"
                     // docker.image(imagename + "${env.BUILD_NUMBER}")
                     //      .run('-p 8761:8761 --name discovery')
